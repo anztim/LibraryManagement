@@ -9,18 +9,9 @@ import java.util.UUID;
 public class Book {
     private String	bookId;
     private Integer	bookInfoId;
+    private String location;
 
     public Book() {
-    }
-
-    public Book(String bookId, Integer bookInfoId) {
-        this.bookId = bookId;
-        this.bookInfoId = bookInfoId;
-    }
-
-    public Book(Integer bookInfoId) {
-        this.bookId = UUID.randomUUID().toString();
-        this.bookInfoId = bookInfoId;
     }
 
     public String getBookId() {
@@ -37,5 +28,13 @@ public class Book {
 
     public void setBookInfoId(Integer bookInfoId) {
         this.bookInfoId = bookInfoId;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

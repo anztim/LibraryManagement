@@ -8,7 +8,7 @@ import java.sql.SQLException;
  * @author anztim
  */
 public class BookDao extends AbstractDao<Book> {
-    public static final String FULL_FIELD_LIST = "book_id, book_info_id";
+    public static final String FULL_FIELD_LIST = "book_id, book_info_id, location";
 
     public BookDao() {
         super(Book.class);
@@ -19,6 +19,6 @@ public class BookDao extends AbstractDao<Book> {
     }
 
     public int insert(Book obj) throws SQLException {
-        return basicUpdate("INSERT INTO t_book(" + FULL_FIELD_LIST + ") VALUES(?,?)", obj.getBookId(), obj.getBookInfoId());
+        return basicUpdate("INSERT INTO t_book(" + FULL_FIELD_LIST + ") VALUES(?,?,?)", obj.getBookId(), obj.getBookInfoId(), obj.getLocation());
     }
 }
