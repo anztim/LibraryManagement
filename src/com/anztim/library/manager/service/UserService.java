@@ -4,8 +4,10 @@ import com.anztim.library.manager.dao.LoginDao;
 import com.anztim.library.manager.dao.UserDao;
 import com.anztim.library.manager.domain.Login;
 import com.anztim.library.manager.domain.User;
+import com.anztim.library.manager.utils.DatabaseUtil;
 import com.anztim.library.manager.utils.ShaUtil;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.UUID;
 
@@ -98,8 +100,11 @@ public class UserService {
 
     public int add(User user, String loginName, String scrPassword) {
         int updated = 0;
+        Connection connection;
         try {
-            int userId = userDao.insert(user);
+            connection = DatabaseUtil.getConnection();
+            connection.setAutoCommit(false);
+            int userId = userDao.insert(connection, user);
             if (userId != -1) {
                 Login login = new Login();
                 String salt = UUID.randomUUID().toString();
@@ -107,7 +112,9 @@ public class UserService {
                 login.setPassword(ShaUtil.sha256(scrPassword + salt));
                 login.setSalt(salt);
                 login.setUserId(userId);
-                updated = loginDao.insert(login);
+                updated = loginDao.insert(connection, login);
+                connection.commit();
+                connection.setAutoCommit(true);
             }
         } catch (SQLException e) {
             e.printStackTrace();

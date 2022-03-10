@@ -2,6 +2,7 @@ package com.anztim.library.manager.dao;
 
 import com.anztim.library.manager.domain.Login;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -32,8 +33,8 @@ public class LoginDao extends AbstractDao<Login> {
         return -1;
     }
 
-    public int insert(Login login) throws SQLException {
-        return basicUpdate("INSERT INTO t_login(login_id,login_name,password,salt,user_id) VALUES(null,?,?,?,?)",
+    public int insert(Connection connection, Login login) throws SQLException {
+        return basicUpdate(connection, "INSERT INTO t_login(login_id,login_name,password,salt,user_id) VALUES(null,?,?,?,?)",
                 login.getLoginName(),
                 login.getPassword(),
                 login.getSalt(),

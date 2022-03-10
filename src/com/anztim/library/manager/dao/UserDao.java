@@ -1,7 +1,6 @@
 package com.anztim.library.manager.dao;
 
 import com.anztim.library.manager.domain.User;
-import com.anztim.library.manager.utils.DatabaseUtil;
 
 import java.sql.*;
 
@@ -19,9 +18,8 @@ public class UserDao extends AbstractDao<User> {
         return basicQuery("SELECT " + FULL_FIELD_LIST + " FROM t_user WHERE user_id=?", id);
     }
 
-    public int insert(User obj) throws SQLException {
+    public int insert(Connection connection,User obj) throws SQLException {
         int user_id = -1;
-        Connection connection = DatabaseUtil.getConnection();
         PreparedStatement statement = connection.prepareStatement("INSERT INTO t_user(" + FULL_FIELD_LIST + ") VALUES(null,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, obj.getType());
         statement.setString(2, obj.getUserName());
