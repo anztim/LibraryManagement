@@ -14,11 +14,22 @@ public class BookDao extends AbstractDao<Book> {
         super(Book.class);
     }
 
-    public Book getById(int id) throws SQLException {
-        return basicQuery("SELECT " + FULL_FIELD_LIST + " FROM t_book WHERE book_id=?", id);
+    public Book getById(String bookId) throws SQLException {
+        return basicQuery("SELECT " + FULL_FIELD_LIST + " FROM t_book WHERE book_id=?", bookId);
     }
 
     public int insert(Book obj) throws SQLException {
         return basicUpdate("INSERT INTO t_book(" + FULL_FIELD_LIST + ") VALUES(?,?,?)", obj.getBookId(), obj.getBookInfoId(), obj.getLocation());
+    }
+
+    public int update(Book book) throws SQLException {
+        return basicUpdate("UPDATE t_book SET " +
+                "book_info_id=?, " +
+                "location=? " +
+                "WHERE book_id=?",
+                book.getBookInfoId(),
+                book.getLocation(),
+                book.getBookId()
+        );
     }
 }
