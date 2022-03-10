@@ -46,6 +46,46 @@ public class UserService {
         return updated;
     }
 
+    public int updateInfo(User user) {
+        int updated = 0;
+        try {
+            updated = userDao.basicUpdate("UPDATE t_user SET " +
+                            "user_name=?," +
+                            "id_num=?," +
+                            "phone_num=?," +
+                            "email=?" +
+                            "WHERE user_id=?",
+                    user.getUserName(),
+                    user.getIdNum(),
+                    user.getPhoneNum(),
+                    user.getEmail(),
+                    user.getUserId()
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return updated;
+    }
+
+    public int updatePrivilege(User user) {
+        int updated = 0;
+        try {
+            updated = userDao.basicUpdate("UPDATE t_user SET " +
+                            "type=?," +
+                            "cash_pledge=?," +
+                            "group_id=?," +
+                            "WHERE user_id=?",
+                    user.getType(),
+                    user.getCashPledge(),
+                    user.getGroupId(),
+                    user.getUserId()
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return updated;
+    }
+
     public int delete(User user) {
         int updated = 0;
         try {
@@ -64,7 +104,7 @@ public class UserService {
                 Login login = new Login();
                 String salt = UUID.randomUUID().toString();
                 login.setLoginName(loginName);
-                login.setPassword(ShaUtil.sha256(scrPassword+salt));
+                login.setPassword(ShaUtil.sha256(scrPassword + salt));
                 login.setSalt(salt);
                 login.setUserId(userId);
                 updated = loginDao.insert(login);
