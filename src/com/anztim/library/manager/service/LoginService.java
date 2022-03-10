@@ -7,6 +7,7 @@ import com.anztim.library.manager.domain.User;
 import com.anztim.library.manager.utils.ShaUtil;
 
 import java.sql.SQLException;
+import java.util.UUID;
 
 /**
  * @author anztim
@@ -25,6 +26,8 @@ public class LoginService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        if (user == null) return null;
+        else if ("DELETED".equals(user.getType())) return null;
         return user;
     }
 }

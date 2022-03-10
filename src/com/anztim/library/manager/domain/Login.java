@@ -10,17 +10,17 @@ public class Login {
     private String loginName;
     private String password;
     private String salt;
-    private Integer uid;
+    private Integer userId;
 
     public Login() {
     }
 
-    public Login(Integer loginId, String loginName, String password, String salt, Integer uid) {
+    public Login(Integer loginId, String loginName, String password, String salt, Integer userId) {
         this.loginId = loginId;
         this.loginName = loginName;
         this.password = password;
         this.salt = salt;
-        this.uid = uid;
+        this.userId = userId;
     }
 
     public Integer getLoginId() {
@@ -55,11 +55,11 @@ public class Login {
         this.salt = salt;
     }
 
-    public Integer getUid() {
-        return this.uid;
+    public Integer getUserId() {
+        return this.userId;
     }
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }
